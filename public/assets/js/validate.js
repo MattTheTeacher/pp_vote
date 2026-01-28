@@ -1,3 +1,4 @@
+// Lesson 2 – Front-end validation for proposal form
 function validateProposalForm() {
   const titleEl = document.getElementById("title");
   const descEl  = document.getElementById("description");
