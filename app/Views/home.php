@@ -15,11 +15,10 @@
     <li><a href="?page=about">About</a></li>
   </ul>
 
-  <h2>What we add in Lesson 2</h2>
+  <h2>Progress</h2>
   <ul>
-    <li>An HTML form to submit a proposal</li>
-    <li>GET vs POST (POST for submissions)</li>
-    <li>JavaScript validation before submit</li>
+    <li>Lesson 2: Forms + GET vs POST + JavaScript validation</li>
+    <li><strong>Lesson 3:</strong> ProposalController class (OOP) routes proposal pages</li>
   </ul>
 </body>
 </html>
