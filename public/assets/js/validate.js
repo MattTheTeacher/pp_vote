@@ -1,4 +1,3 @@
-// Lesson 2 – Front-end validation for proposal form
 function validateProposalForm() {
   const titleEl = document.getElementById("title");
   const descEl  = document.getElementById("description");
@@ -6,7 +5,6 @@ function validateProposalForm() {
   const title = titleEl.value.trim();
   const desc  = descEl.value.trim();
 
-  // Clear previous messages
   const titleErr = document.getElementById("titleError");
   const descErr  = document.getElementById("descriptionError");
   if (titleErr) titleErr.textContent = "";
