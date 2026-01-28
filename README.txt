@@ -1,32 +1,29 @@
-Lesson 1 Code Pack – PHP, XAMPP & MVC (Public Voting App)
+Lesson 2 COMPLETE Code Pack – Public Voting App (pp_vote)
 
-WHAT THIS IS
-- A tiny starter project you can copy into XAMPP's htdocs folder.
-- Includes:
-  1) hello.php (first PHP file)
-  2) A mini MVC-style structure with a Front Controller:
-     pp_vote/public/index.php
-     pp_vote/app/Views/home.php
-     pp_vote/app/Views/about.php
+CANONICAL REPO (Lesson 1 baseline):
+https://github.com/MattBrownsettTeacher/pp_vote
+
+This zip is a COMPLETE working snapshot that includes:
+- Lesson 1: hello.php + home/about views + front controller
+- Lesson 2: Proposals pages + HTML form + JavaScript validation + basic POST handling
 
 WHERE TO PUT IT
-1) Locate your XAMPP htdocs folder (commonly one of these):
-   - C:\xampp\htdocs\
-   - /Applications/XAMPP/htdocs/   (macOS)
-   - /opt/lampp/htdocs/            (Linux)
+Copy the 'pp_vote' folder into your XAMPP htdocs folder, e.g.
+- Windows: C:\xampp\htdocs\pp_vote\
+- macOS:   /Applications/XAMPP/htdocs/pp_vote/
+- Linux:   /opt/lampp/htdocs/pp_vote/
 
-2) Copy the 'pp_vote' folder into htdocs so the final path becomes:
-   .../htdocs/pp_vote/
-
-HOW TO RUN IT (in a browser)
-A) First PHP page:
-   http://localhost/pp_vote/hello.php
-
-B) MVC Front Controller pages:
+HOW TO RUN
+1) Start Apache in XAMPP
+2) Open:
    http://localhost/pp_vote/public/
-   http://localhost/pp_vote/public/?page=about
 
-TROUBLESHOOTING
-- If it says 'Not Found' (404): check the folder is really inside htdocs and the URL matches.
-- If it shows PHP code instead of output: Apache/PHP not running OR wrong extension (must be .php).
-- If nothing loads: start Apache in XAMPP Control Panel.
+TEST LESSON 2 FEATURES
+- Click "Go to Proposals"
+- Click "Submit a Proposal"
+- Try invalid data (JS should block submission)
+- Submit valid data (you should see a confirmation page)
+
+NOTES
+- Server-side validation (FormHelper) is NOT added yet (planned for a later lesson).
+- Database storage is NOT added yet.
