@@ -9,5 +9,6 @@
   <h1>Proposals</h1>
   <p><a href="?page=proposals-create">Submit a Proposal</a></p>
   <p><a href="?page=home">Back Home</a></p>
+  <p><em>Lesson 6 will display proposals from the database.</em></p>
 </body>
 </html>
