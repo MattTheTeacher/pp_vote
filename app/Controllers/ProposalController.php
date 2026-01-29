@@ -4,6 +4,12 @@ class ProposalController
 {
     public function index()
     {
+        require_once __DIR__ . '/../Core/Database.php';
+
+        $db = Database::connect();
+        $stmt = $db->query("SELECT * FROM proposals ORDER BY created_at DESC");
+        $proposals = $stmt->fetchAll();
+
         require_once __DIR__ . '/../Views/proposals/index.php';
     }
 
@@ -32,12 +38,11 @@ class ProposalController
             return;
         }
 
-        // Lesson 5: store in database using PDO prepared statement
         $db = Database::connect();
         $stmt = $db->prepare("INSERT INTO proposals (title, description) VALUES (:title, :description)");
         $stmt->execute([
             ':title' => $title,
-            ':description' => $description
+            ':description' => $description,
         ]);
 
         require_once __DIR__ . '/../Views/proposals/store_result.php';
