@@ -12,31 +12,6 @@ class ProposalController
 
         require_once __DIR__ . '/../Views/proposals/index.php';
     }
-    public function show()
-    {
-        require_once __DIR__ . '/../Core/Database.php';
-
-        $id = $_GET['id'] ?? null;
-
-        if (!$id || !is_numeric($id)) {
-            $error = "Invalid proposal ID.";
-            require_once __DIR__ . '/../Views/proposals/show.php';
-            return;
-        }
-
-        $db = Database::connect();
-        $stmt = $db->prepare("SELECT * FROM proposals WHERE id = :id LIMIT 1");
-        $stmt->execute([':id' => (int)$id]);
-        $proposal = $stmt->fetch();
-
-        if (!$proposal) {
-            $error = "Proposal not found.";
-            require_once __DIR__ . '/../Views/proposals/show.php';
-            return;
-        }
-
-        require_once __DIR__ . '/../Views/proposals/show.php';
-    }
 
     public function create()
     {
