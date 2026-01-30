@@ -4,13 +4,49 @@ class ProposalController
 {
     public function index()
     {
-        require_once __DIR__ . '/../Core/Database.php';
+        require_once __DIR__ . '/../Models/Proposal.php';
 
-        $db = Database::connect();
-        $stmt = $db->query("SELECT * FROM proposals ORDER BY created_at DESC");
-        $proposals = $stmt->fetchAll();
+        $proposalModel = new Proposal();
+        $proposals = $proposalModel->getAll();
 
         require_once __DIR__ . '/../Views/proposals/index.php';
+    }
+    public function show()
+    {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            require_once __DIR__ . '/../Views/proposals/show.php';
+            return;
+        }
+
+        require_once __DIR__ . '/../Models/Proposal.php';
+
+        $proposalModel = new Proposal();
+        $proposal = $proposalModel->getById((int)$id);
+
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require_once __DIR__ . '/../Views/proposals/show.php';
+            return;
+        }
+
+        require_once __DIR__ . '/../Views/proposals/show.php';
+    }
+
+        $db = Database::connect();
+        $stmt = $db->prepare("SELECT * FROM proposals WHERE id = :id LIMIT 1");
+        $stmt->execute([':id' => (int)$id]);
+        $proposal = $stmt->fetch();
+
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require_once __DIR__ . '/../Views/proposals/show.php';
+            return;
+        }
+
+        require_once __DIR__ . '/../Views/proposals/show.php';
     }
 
     public function create()
