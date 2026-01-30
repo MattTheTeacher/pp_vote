@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Proposal Model
- * Handles all database queries for proposals (READ operations for Lesson 7).
+ * Proposal Model (TRUE MVC)
+ * All database queries for proposals live here.
  */
 class Proposal
 {
@@ -14,22 +14,25 @@ class Proposal
         $this->db = Database::connect();
     }
 
-    /**
-     * Get all proposals (newest first).
-     */
-    public function getAll(): array
+    public function getAll()
     {
         $stmt = $this->db->query("SELECT * FROM proposals ORDER BY created_at DESC");
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get a single proposal by ID (or false if not found).
-     */
-    public function getById(int $id): array|false
+    public function getById($id)
     {
         $stmt = $this->db->prepare("SELECT * FROM proposals WHERE id = :id LIMIT 1");
-        $stmt->execute([':id' => $id]);
+        $stmt->execute([':id' => (int)$id]);
         return $stmt->fetch();
+    }
+
+    public function create($title, $description)
+    {
+        $stmt = $this->db->prepare("INSERT INTO proposals (title, description) VALUES (:title, :description)");
+        $stmt->execute([
+            ':title' => $title,
+            ':description' => $description,
+        ]);
     }
 }

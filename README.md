@@ -1,59 +1,31 @@
-# pp_vote — Lesson 7 Full Code Pack
+# pp_vote — Lesson 7 Full Code Pack (TRUE MVC, FIXED)
 
-This pack is for **Lesson 7: Full MVC Read Flow (List + Detail Pages)**.
+This pack is **Lesson 7: Full MVC READ Flow (List + Detail Pages)** and is now **TRUE MVC**:
 
-Lesson 6 introduced the **READ list page** (PDO SELECT + display).  
-Lesson 7 extends READ by adding a **detail page** that loads a single proposal by ID.
+✅ Controllers coordinate only (no SQL).  
+✅ Models handle ALL database queries.  
+✅ Views display data only.
 
 ## What Lesson 7 Adds
+- Detail route: `?page=proposal&id=1`
+- Detail view: `app/Views/proposals/show.php`
+- “View details” link on the proposals list page
+- Proposal model: `app/Models/Proposal.php`
 
-- A new route: `?page=proposal&id=1`
-- A prepared SELECT query with `WHERE id = :id LIMIT 1`
-- A detail view page for one proposal
-- A “View details” link on the list page
-
-## Files Changed / Added
-
-**Changed**
-- `public/index.php` (adds route: `proposal` → `show()`)
-- `app/Controllers/ProposalController.php` (adds `show()` method)
-- `app/Views/proposals/index.php` (adds “View details” links)
-
-**Added**
-- `app/Views/proposals/show.php` (proposal detail view)
+## Key Files
+- `app/Models/Proposal.php` (getAll, getById, create)
+- `app/Controllers/ProposalController.php` (index, show, create, store — no SQL)
+- `app/Views/proposals/index.php` (list + detail links)
+- `app/Views/proposals/show.php` (detail view)
+- `app/Views/proposals/create.php` (form)
+- `public/index.php` (routing)
 
 ## Run in XAMPP
+1) Put folder in: `C:\xampp\htdocs\pp_vote`
+2) Start Apache + MySQL
+3) Ensure DB: `pp_vote` and table: `proposals` exist
 
-1) Place the folder in:
-- `C:\xampp\htdocs\pp_vote`
-
-2) Start **Apache** + **MySQL** in XAMPP.
-
-3) In phpMyAdmin, confirm:
-- Database: `pp_vote`
-- Table: `proposals`
-- Rows exist (create a few proposals if needed)
-
-Open in browser:
-- Home: `http://localhost/pp_vote/public/`
+URLs:
 - List: `http://localhost/pp_vote/public/?page=proposals`
-- Detail example: `http://localhost/pp_vote/public/?page=proposal&id=1`
-
-## Testing Checklist
-
-- [ ] List page loads and shows proposals
-- [ ] Each proposal has a “View details” link
-- [ ] Detail page loads for valid numeric IDs
-- [ ] Invalid/missing IDs show a safe error
-- [ ] Output is escaped with `htmlspecialchars()`
-
-## Notes
-
-- Do **not** commit database exports unless your tutor asks.
-- Keep commits limited to the lesson files only.
-
-
-## MVC Note (Lesson 7)
-
-Lesson 7 introduces a **Proposal model** at `app/Models/Proposal.php`.
-All READ database queries (list + detail) are now handled in the model.
+- Detail: `http://localhost/pp_vote/public/?page=proposal&id=1`
+- Create: `http://localhost/pp_vote/public/?page=proposals-create`
