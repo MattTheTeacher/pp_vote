@@ -14,23 +14,22 @@
 <body>
   <div class="box">
     <h1>Submit a Proposal</h1>
+    <p><a href="?page=proposals">← Back to Proposals</a> | <a href="?page=home">Home</a></p>
 
-    <p><a href="?page=proposals">← Back to Proposals</a></p>
-
-    <form method="POST" action="?page=proposals-store" onsubmit="return validateProposalForm();">
+    <form action="?page=proposals-store" method="POST" novalidate>
       <div>
         <label for="title">Title</label><br />
         <input
           type="text"
           id="title"
           name="title"
-          placeholder="e.g. Extend library opening hours"
           value="<?= htmlspecialchars($old['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+          maxlength="100"
           required
         />
         <div id="titleError" class="error"></div>
         <?php if (!empty($errors['title'])): ?>
-          <div class="error"><?= $errors['title'] ?></div>
+          <div class="error"><?= htmlspecialchars($errors['title'], ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
       </div>
 
@@ -42,12 +41,12 @@
           id="description"
           name="description"
           rows="6"
-          placeholder="Explain the proposal clearly..."
+          maxlength="500"
           required
         ><?= htmlspecialchars($old['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
         <div id="descriptionError" class="error"></div>
         <?php if (!empty($errors['description'])): ?>
-          <div class="error"><?= $errors['description'] ?></div>
+          <div class="error"><?= htmlspecialchars($errors['description'], ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
       </div>
 

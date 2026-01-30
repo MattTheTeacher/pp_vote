@@ -10,6 +10,10 @@ switch ($page) {
         $proposalController->index();
         break;
 
+    case 'proposal':
+        $proposalController->show();
+        break;
+
     case 'proposals-create':
         $proposalController->create();
         break;
