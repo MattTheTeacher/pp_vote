@@ -10,8 +10,11 @@
   </style>
 </head>
 <body>
-  <h1>Proposals</h1>
-  <p><a href="?page=proposals-create">Submit a Proposal</a> | <a href="?page=home">Home</a></p>
+<?php if (!empty($created)): ?>
+  <p><strong>✅ Proposal submitted successfully.</strong></p>
+<?php endif; ?>
+
+<p><a href="?page=proposals-create">Submit a Proposal</a> | <a href="?page=home">Home</a></p>
 
   <?php if (empty($proposals)): ?>
     <p>No proposals have been submitted yet.</p>
