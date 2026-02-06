@@ -1,22 +1,15 @@
 <?php
+class ProposalController {
 
-class ProposalController
-{
-    public function index()
-    {
+    public function index() {
         require_once __DIR__ . '/../Models/Proposal.php';
-
-        $proposalModel = new Proposal();
-        $proposals = $proposalModel->getAll();
-
-        // PRG success flag (shown after successful CREATE)
-        $created = !empty($_GET['created']);
-
+        $model = new Proposal();
+        $proposals = $model->getAll();
+        $created = !empty($_GET['created']); // if you later use PRG for create
         require_once __DIR__ . '/../Views/proposals/index.php';
     }
 
-    public function show()
-    {
+    public function show() {
         $id = $_GET['id'] ?? null;
 
         if (!$id || !is_numeric($id)) {
@@ -26,9 +19,8 @@ class ProposalController
         }
 
         require_once __DIR__ . '/../Models/Proposal.php';
-
-        $proposalModel = new Proposal();
-        $proposal = $proposalModel->getById((int)$id);
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
 
         if (!$proposal) {
             $error = "Proposal not found.";
@@ -36,42 +28,83 @@ class ProposalController
             return;
         }
 
+        $updated = !empty($_GET['updated']);
         require_once __DIR__ . '/../Views/proposals/show.php';
     }
 
-    public function create()
-    {
+    public function create() {
+        // ensure variables exist for the view
+        $errors = $errors ?? [];
+        $old = $old ?? ['title' => '', 'description' => ''];
         require_once __DIR__ . '/../Views/proposals/create.php';
     }
 
-    public function store()
-    {
-        require_once __DIR__ . '/../Core/FormHelper.php';
+    public function store() {
         require_once __DIR__ . '/../Models/Proposal.php';
+        $model = new Proposal();
 
-        $form = new FormHelper();
+        $title = $_POST['title'] ?? '';
+        $description = $_POST['description'] ?? '';
 
-        // Validate inputs
-        $title = $form->text($_POST['title'] ?? '', 'title', 5, 100);
-        $description = $form->text($_POST['description'] ?? '', 'description', 20, 500);
+        $model->create($title, $description);
 
-        $errors = $form->errors();
-        $old = [
-            'title' => $_POST['title'] ?? '',
-            'description' => $_POST['description'] ?? '',
-        ];
+        // PRG redirect (keeps behaviour consistent with Lesson 8)
+        header('Location: ?page=proposals&created=1');
+        exit;
+    }
 
-        if ($form->hasErrors()) {
-            require_once __DIR__ . '/../Views/proposals/create.php';
+    public function edit() {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            require_once __DIR__ . '/../Views/proposals/edit.php';
             return;
         }
 
-        // TRUE MVC: INSERT happens in the model
-        $proposalModel = new Proposal();
-        $proposalModel->create($title, $description);
+        require_once __DIR__ . '/../Models/Proposal.php';
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
 
-        // PRG: Redirect to prevent duplicate submissions on refresh
-        header('Location: ?page=proposals&created=1');
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require_once __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
+
+        // ✅ Prefill form fields from database record
+        $old = [
+            'title' => $proposal['title'] ?? '',
+            'description' => $proposal['description'] ?? '',
+        ];
+        $errors = [];
+
+        require_once __DIR__ . '/../Views/proposals/edit.php';
+    }
+
+    public function update() {
+        require_once __DIR__ . '/../Models/Proposal.php';
+        $model = new Proposal();
+
+        $id = $_POST['id'] ?? null;
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            $proposal = ['id' => 0];
+            $old = [
+                'title' => $_POST['title'] ?? '',
+                'description' => $_POST['description'] ?? '',
+            ];
+            $errors = [];
+            require_once __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
+
+        $title = $_POST['title'] ?? '';
+        $description = $_POST['description'] ?? '';
+
+        $model->update((int)$id, $title, $description);
+
+        header('Location: ?page=proposal&id=' . (int)$id . '&updated=1');
         exit;
     }
 }
