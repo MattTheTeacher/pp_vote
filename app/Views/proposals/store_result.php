@@ -6,7 +6,7 @@
   <title>Public Voting App | Submitted</title>
 </head>
 <body>
-  <h1>Proposal received (Lesson 2)</h1>
+  <h1>Proposal received (Lesson 2/3)</h1>
 
   <p>This is a temporary page to prove POST submission works (no database yet).</p>
 

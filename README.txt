@@ -1,29 +1,23 @@
-Lesson 2 COMPLETE Code Pack – Public Voting App (pp_vote)
+Lesson 3 Code Pack – Public Voting App (pp_vote)
 
-CANONICAL REPO (Lesson 1 baseline):
-https://github.com/MattBrownsettTeacher/pp_vote
+This pack is a COMPLETE working snapshot up to Lesson 3.
 
-This zip is a COMPLETE working snapshot that includes:
-- Lesson 1: hello.php + home/about views + front controller
-- Lesson 2: Proposals pages + HTML form + JavaScript validation + basic POST handling
+What’s included
+- Lesson 1: Basic PHP + MVC folder structure
+- Lesson 2: Proposal form + GET vs POST + JavaScript validation
+- Lesson 3: Refactor to OOP Controllers
+  - Added: app/Controllers/ProposalController.php
+  - Updated: public/index.php to route to controller methods
 
-WHERE TO PUT IT
-Copy the 'pp_vote' folder into your XAMPP htdocs folder, e.g.
-- Windows: C:\xampp\htdocs\pp_vote\
-- macOS:   /Applications/XAMPP/htdocs/pp_vote/
-- Linux:   /opt/lampp/htdocs/pp_vote/
-
-HOW TO RUN
-1) Start Apache in XAMPP
-2) Open:
+How to run
+1) Copy the 'pp_vote' folder into XAMPP htdocs, e.g. C:\xampp\htdocs\pp_vote\
+2) Start Apache in XAMPP Control Panel
+3) Open:
    http://localhost/pp_vote/public/
 
-TEST LESSON 2 FEATURES
-- Click "Go to Proposals"
-- Click "Submit a Proposal"
-- Try invalid data (JS should block submission)
-- Submit valid data (you should see a confirmation page)
-
-NOTES
-- Server-side validation (FormHelper) is NOT added yet (planned for a later lesson).
-- Database storage is NOT added yet.
+Lesson 3 checks
+- Home loads
+- Proposals loads
+- Form loads
+- JS validation still blocks invalid input
+- Submitting valid data shows confirmation page
