@@ -1,9 +1,4 @@
 <?php
-/**
- * public/index.php – Front Controller (Router)
- * Lesson 3: route requests to Controller classes (OOP)
- */
-
 require_once __DIR__ . '/../app/Controllers/ProposalController.php';
 
 $page = $_GET['page'] ?? 'home';
