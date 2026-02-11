@@ -11,6 +11,6 @@
     <li><a href="?page=proposals">Go to Proposals</a></li>
     <li><a href="?page=about">About</a></li>
   </ul>
-  <p><strong>Lesson 4:</strong> Server-side validation using FormHelper.</p>
+  <p><strong>Lesson 5:</strong> Store proposals in a database using PDO.</p>
 </body>
 </html>

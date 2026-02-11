@@ -15,6 +15,7 @@ class ProposalController
     public function store()
     {
         require_once __DIR__ . '/../Core/FormHelper.php';
+        require_once __DIR__ . '/../Core/Database.php';
 
         $form = new FormHelper();
 
@@ -30,6 +31,14 @@ class ProposalController
             require_once __DIR__ . '/../Views/proposals/create.php';
             return;
         }
+
+        // Lesson 5: store in database using PDO prepared statement
+        $db = Database::connect();
+        $stmt = $db->prepare("INSERT INTO proposals (title, description) VALUES (:title, :description)");
+        $stmt->execute([
+            ':title' => $title,
+            ':description' => $description
+        ]);
 
         require_once __DIR__ . '/../Views/proposals/store_result.php';
     }
