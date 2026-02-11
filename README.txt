@@ -1,9 +1,9 @@
-Lesson 6 Code Pack – Public Voting App (pp_vote)
+Lesson 7 Code Pack – Public Voting App (pp_vote)
 
 Includes Lessons 1–6 functionality:
 - Lesson 4: Server-side validation (FormHelper)
 - Lesson 5: Store proposals in MySQL using PDO INSERT
-- Lesson 6: Retrieve and display proposals using PDO SELECT (fetchAll)
+- Lesson 7: Retrieve and display proposals using PDO SELECT (fetchAll)
 
 REPOSITORY (reference)
 https://github.com/MattTheTeacher/pp_vote
@@ -48,7 +48,7 @@ HOW TO RUN
 3) Open:
    http://localhost/pp_vote/public/
 
-LESSON 6 TESTS (must all pass)
+Lesson 7 TESTS (must all pass)
 1) Submit a valid proposal:
    - Go to Submit a Proposal
    - Submit valid title + description
@@ -58,7 +58,7 @@ LESSON 6 TESTS (must all pass)
    - phpMyAdmin → pp_vote → proposals
    - A new row exists
 
-3) View proposals list (Lesson 6):
+3) View proposals list (Lesson 7):
    - Go to View Proposals
    - Your proposals display in the browser (newest first)
 
