@@ -21,6 +21,7 @@
         <h3><?= htmlspecialchars($proposal['title'], ENT_QUOTES, 'UTF-8') ?></h3>
         <p><?= nl2br(htmlspecialchars($proposal['description'], ENT_QUOTES, 'UTF-8')) ?></p>
         <p class="meta">Submitted: <?= htmlspecialchars($proposal['created_at'], ENT_QUOTES, 'UTF-8') ?></p>
+        <p><a href="?page=proposal&id=<?= htmlspecialchars($proposal['id'], ENT_QUOTES, 'UTF-8') ?>">View details</a></p>
       </div>
     <?php endforeach; ?>
   <?php endif; ?>
