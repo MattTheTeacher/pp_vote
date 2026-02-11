@@ -14,9 +14,22 @@ class ProposalController
 
     public function store()
     {
-        // Lesson 3: still no server-side validation or database storage
-        $title = $_POST['title'] ?? '';
-        $description = $_POST['description'] ?? '';
+        require_once __DIR__ . '/../Core/FormHelper.php';
+
+        $form = new FormHelper();
+
+        $title = $form->text($_POST['title'] ?? '', 'title', 5, 60);
+        $description = $form->text($_POST['description'] ?? '', 'description', 20, 500);
+
+        if ($form->hasErrors()) {
+            $errors = $form->errors();
+            $old = [
+                'title' => $title,
+                'description' => $description,
+            ];
+            require_once __DIR__ . '/../Views/proposals/create.php';
+            return;
+        }
 
         require_once __DIR__ . '/../Views/proposals/store_result.php';
     }

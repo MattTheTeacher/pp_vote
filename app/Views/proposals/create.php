@@ -20,16 +20,35 @@
     <form method="POST" action="?page=proposals-store" onsubmit="return validateProposalForm();">
       <div>
         <label for="title">Title</label><br />
-        <input type="text" id="title" name="title" placeholder="e.g. Extend library opening hours" required />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="e.g. Extend library opening hours"
+          value="<?= htmlspecialchars($old['title'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+          required
+        />
         <div id="titleError" class="error"></div>
+        <?php if (!empty($errors['title'])): ?>
+          <div class="error"><?= $errors['title'] ?></div>
+        <?php endif; ?>
       </div>
 
       <br />
 
       <div>
         <label for="description">Description</label><br />
-        <textarea id="description" name="description" rows="6" placeholder="Explain the proposal clearly..." required></textarea>
+        <textarea
+          id="description"
+          name="description"
+          rows="6"
+          placeholder="Explain the proposal clearly..."
+          required
+        ><?= htmlspecialchars($old['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
         <div id="descriptionError" class="error"></div>
+        <?php if (!empty($errors['description'])): ?>
+          <div class="error"><?= $errors['description'] ?></div>
+        <?php endif; ?>
       </div>
 
       <br />
