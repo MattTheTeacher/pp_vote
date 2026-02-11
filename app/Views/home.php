@@ -11,7 +11,7 @@
     <li><a href="?page=proposals">View Proposals</a></li>
     <li><a href="?page=proposals-create">Submit a Proposal</a></li>
     <li><a href="?page=about">About</a></li>
-  </ul>
+</ul>
 
   <p><strong>Progress:</strong></p>
   <ul>
@@ -19,6 +19,7 @@
     <li>Lesson 5: Store proposals (PDO INSERT)</li>
     <li>Lesson 6: Retrieve and display proposals (PDO SELECT)</li>
     <li><strong>Lesson 7:</strong> Proposal detail page (READ by ID)</li>
-  </ul>
+      <li><strong>Lesson 8:</strong> Create proposals (POST + validation + PRG redirect)</li>
+</ul>
 </body>
 </html>

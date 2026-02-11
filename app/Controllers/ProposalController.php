@@ -9,6 +9,9 @@ class ProposalController
         $proposalModel = new Proposal();
         $proposals = $proposalModel->getAll();
 
+        // PRG success flag (shown after successful CREATE)
+        $created = !empty($_GET['created']);
+
         require_once __DIR__ . '/../Views/proposals/index.php';
     }
 
@@ -38,16 +41,17 @@ class ProposalController
 
     public function create()
     {
-        // $errors and $old may be set by store() when validation fails
         require_once __DIR__ . '/../Views/proposals/create.php';
     }
 
     public function store()
     {
         require_once __DIR__ . '/../Core/FormHelper.php';
+        require_once __DIR__ . '/../Models/Proposal.php';
 
         $form = new FormHelper();
 
+        // Validate inputs
         $title = $form->text($_POST['title'] ?? '', 'title', 5, 100);
         $description = $form->text($_POST['description'] ?? '', 'description', 20, 500);
 
@@ -62,12 +66,12 @@ class ProposalController
             return;
         }
 
-        require_once __DIR__ . '/../Models/Proposal.php';
-
+        // TRUE MVC: INSERT happens in the model
         $proposalModel = new Proposal();
         $proposalModel->create($title, $description);
 
-        // keep existing flow used in earlier lessons (shows submitted data)
-        require_once __DIR__ . '/../Views/proposals/store_result.php';
+        // PRG: Redirect to prevent duplicate submissions on refresh
+        header('Location: ?page=proposals&created=1');
+        exit;
     }
 }

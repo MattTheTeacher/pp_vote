@@ -8,11 +8,11 @@
     .error { color: #b00020; font-size: 0.95rem; }
     label { font-weight: 600; }
     input, textarea { width: 100%; max-width: 720px; padding: 8px; }
-    .box { max-width: 760px; }
+    .wrap { max-width: 820px; }
   </style>
 </head>
 <body>
-  <div class="box">
+  <div class="wrap">
     <h1>Submit a Proposal</h1>
     <p><a href="?page=proposals">← Back to Proposals</a> | <a href="?page=home">Home</a></p>
 
@@ -27,7 +27,6 @@
           maxlength="100"
           required
         />
-        <div id="titleError" class="error"></div>
         <?php if (!empty($errors['title'])): ?>
           <div class="error"><?= htmlspecialchars($errors['title'], ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
@@ -44,7 +43,6 @@
           maxlength="500"
           required
         ><?= htmlspecialchars($old['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
-        <div id="descriptionError" class="error"></div>
         <?php if (!empty($errors['description'])): ?>
           <div class="error"><?= htmlspecialchars($errors['description'], ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
@@ -55,7 +53,5 @@
       <button type="submit">Submit Proposal</button>
     </form>
   </div>
-
-  <script src="/pp_vote/public/assets/js/validate.js"></script>
 </body>
 </html>
