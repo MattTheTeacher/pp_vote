@@ -22,10 +22,10 @@
 
 <h2>Progress:</h2>
 <ul>
-  <li><strong>Lesson 6:</strong> Retrieve and display proposals (PDO SELECT)</li>
   <li><strong>Lesson 7:</strong> Proposal detail page (READ by ID)</li>
   <li><strong>Lesson 8:</strong> Create proposals (POST + validation + PRG redirect)</li>
   <li><strong>Lesson 9:</strong> Update proposals (Edit form + POST + validation + PRG)</li>
+  <li><strong>Lesson 10:</strong> Delete proposals (Confirm page + POST destroy + PRG)</li>
 </ul>
 
 </body>

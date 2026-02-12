@@ -9,6 +9,7 @@ class ProposalController
         $model = new Proposal();
         $proposals = $model->getAll();
         $created = !empty($_GET['created']);
+        $deleted = !empty($_GET['deleted']);
         require __DIR__ . '/../Views/proposals/index.php';
     }
 
@@ -142,4 +143,43 @@ class ProposalController
         header('Location: ?page=proposal&id=' . (int)$id . '&updated=1');
         exit;
     }
+    public function deleteConfirm(): void
+    {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            require __DIR__ . '/../Views/proposals/delete_confirm.php';
+            return;
+        }
+
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
+
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require __DIR__ . '/../Views/proposals/delete_confirm.php';
+            return;
+        }
+
+        require __DIR__ . '/../Views/proposals/delete_confirm.php';
+    }
+
+    public function destroy(): void
+    {
+        $id = $_POST['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            header('Location: ?page=proposals');
+            exit;
+        }
+
+        $model = new Proposal();
+        $model->delete((int)$id);
+
+        // PRG redirect back to list
+        header('Location: ?page=proposals&deleted=1');
+        exit;
+    }
+
 }
