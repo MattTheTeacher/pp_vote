@@ -1,50 +1,125 @@
 <?php
+require_once __DIR__ . '/../Models/Proposal.php';
+require_once __DIR__ . '/../Core/FormHelper.php';
 
 class ProposalController
 {
-    public function index()
+    public function index(): void
     {
-        require_once __DIR__ . '/../Models/Proposal.php';
-
-        $proposalModel = new Proposal();
-        $proposals = $proposalModel->getAll();
-
-        require_once __DIR__ . '/../Views/proposals/index.php';
+        $model = new Proposal();
+        $proposals = $model->getAll();
+        $created = !empty($_GET['created']);
+        require __DIR__ . '/../Views/proposals/index.php';
     }
 
-    public function show()
+    public function show(): void
     {
         $id = $_GET['id'] ?? null;
 
         if (!$id || !is_numeric($id)) {
             $error = "Invalid proposal ID.";
-            require_once __DIR__ . '/../Views/proposals/show.php';
+            require __DIR__ . '/../Views/proposals/show.php';
             return;
         }
 
-        require_once __DIR__ . '/../Models/Proposal.php';
-
-        $proposalModel = new Proposal();
-        $proposal = $proposalModel->getById((int)$id);
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
 
         if (!$proposal) {
             $error = "Proposal not found.";
-            require_once __DIR__ . '/../Views/proposals/show.php';
+            require __DIR__ . '/../Views/proposals/show.php';
             return;
         }
 
-        require_once __DIR__ . '/../Views/proposals/show.php';
+        $updated = !empty($_GET['updated']);
+        require __DIR__ . '/../Views/proposals/show.php';
     }
 
-    public function create()
+    public function create(): void
     {
-        // $errors and $old may be set by store() when validation fails
-        require_once __DIR__ . '/../Views/proposals/create.php';
+        $errors = $errors ?? [];
+        $old = $old ?? ['title' => '', 'description' => ''];
+        require __DIR__ . '/../Views/proposals/create.php';
     }
 
-    public function store()
+    public function store(): void
     {
-        require_once __DIR__ . '/../Core/FormHelper.php';
+        $form = new FormHelper();
+
+        $title = $form->text($_POST['title'] ?? '', 'title', 5, 100);
+        $description = $form->text($_POST['description'] ?? '', 'description', 20, 500);
+
+        $errors = $form->errors();
+        $old = [
+            'title' => $_POST['title'] ?? '',
+            'description' => $_POST['description'] ?? '',
+        ];
+
+        if ($form->hasErrors()) {
+            require __DIR__ . '/../Views/proposals/create.php';
+            return;
+        }
+
+        $model = new Proposal();
+        $model->create($title, $description);
+
+        header('Location: ?page=proposals&created=1');
+        exit;
+    }
+
+    public function edit(): void
+    {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            require __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
+
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
+
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
+
+        // Prefill from DB
+        $old = [
+            'title' => $proposal['title'] ?? '',
+            'description' => $proposal['description'] ?? '',
+        ];
+        $errors = [];
+
+        require __DIR__ . '/../Views/proposals/edit.php';
+    }
+
+    public function update(): void
+    {
+        $id = $_POST['id'] ?? null;
+
+        if (!$id || !is_numeric($id)) {
+            $error = "Invalid proposal ID.";
+            $proposal = ['id' => 0];
+            $old = [
+                'title' => $_POST['title'] ?? '',
+                'description' => $_POST['description'] ?? '',
+            ];
+            $errors = ['id' => 'Invalid proposal ID.'];
+            require __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
+
+        $model = new Proposal();
+        $proposal = $model->getById((int)$id);
+
+        if (!$proposal) {
+            $error = "Proposal not found.";
+            require __DIR__ . '/../Views/proposals/edit.php';
+            return;
+        }
 
         $form = new FormHelper();
 
@@ -58,16 +133,13 @@ class ProposalController
         ];
 
         if ($form->hasErrors()) {
-            require_once __DIR__ . '/../Views/proposals/create.php';
+            require __DIR__ . '/../Views/proposals/edit.php';
             return;
         }
 
-        require_once __DIR__ . '/../Models/Proposal.php';
+        $model->update((int)$id, $title, $description);
 
-        $proposalModel = new Proposal();
-        $proposalModel->create($title, $description);
-
-        // keep existing flow used in earlier lessons (shows submitted data)
-        require_once __DIR__ . '/../Views/proposals/store_result.php';
+        header('Location: ?page=proposal&id=' . (int)$id . '&updated=1');
+        exit;
     }
 }
