@@ -44,4 +44,12 @@ class Proposal
         $stmt->execute([':id' => $id, ':title' => $title, ':description' => $description]);
         return $stmt->rowCount();
     }
+    public function delete(int $id): int
+    {
+        $stmt = $this->db->prepare(
+            "DELETE FROM proposals WHERE id = :id"
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount();
+    }
 }

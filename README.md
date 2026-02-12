@@ -1,29 +1,26 @@
-# pp_vote – Lesson 9 Code Pack (TRUE MVC)
-**Lesson focus:** UPDATE flow (Edit form → POST → server-side validation → Model UPDATE → PRG redirect)
+# pp_vote – Lesson 10 Code Pack (TRUE MVC)
+**Lesson focus:** DELETE flow (Confirm page → POST destroy → Model DELETE → PRG redirect)
 
 This pack is designed to be a **drop-in XAMPP project folder** for the teaching series.
 It includes **everything required up to Lesson 9**, so students can continue seamlessly.
 
 ---
 
-## What’s included (Lessons 6–9)
-### ✅ Lesson 6 – READ (All)
-- Fetch and display all proposals from MySQL using PDO (prepared statements / safe output)
+## What’s included (Lessons 7–10)
+### ✅ Lesson 7 – READ (By ID)
+- Proposal detail page (`?page=proposal&id=...`)
 
-### ✅ Lesson 7 – READ (One by ID)
-- Proposal detail page: `?page=proposal&id=1`
-- ID validation + “not found” handling
+### ✅ Lesson 8 – CREATE
+- POST form submission with validation + PRG redirect
 
-### ✅ Lesson 8 – CREATE (POST + PRG + validation)
-- Create form: `?page=proposals-create`
-- Server-side validation via `FormHelper`
-- PRG redirect after POST (prevents resubmission)
+### ✅ Lesson 9 – UPDATE
+- Edit form prefill + POST update with validation + PRG redirect
 
-### ✅ Lesson 9 – UPDATE (Edit + POST + PRG + validation)
-- Edit link on list + detail page
-- Edit form **pre-fills from database**
-- Server-side validation via `FormHelper` (same rules as Lesson 8)
-- PRG redirect after UPDATE back to detail page with `updated=1`
+### ✅ Lesson 10 – DELETE
+- Confirmation page (GET)
+- Destroy action (POST)
+- Proposal model delete() method
+- PRG redirect back to list with `deleted=1` message
 
 ---
 
@@ -129,3 +126,8 @@ pp_vote/
 
 ## What changes in the next lesson (preview)
 Lesson 10 typically introduces **DELETE** (confirm screen + POST delete + PRG back to list).
+
+---
+
+## Database note
+This project expects the timestamp column to be named **`created_at`** in the `proposals` table (to match the teaching sequence in earlier lessons).

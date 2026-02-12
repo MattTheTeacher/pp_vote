@@ -20,6 +20,10 @@
   <p class="success">✅ Proposal submitted successfully.</p>
 <?php endif; ?>
 
+<?php if (!empty($deleted)): ?>
+  <p class="success">✅ Proposal deleted successfully.</p>
+<?php endif; ?>
+
 <?php if (empty($proposals)): ?>
   <p>No proposals have been submitted yet.</p>
 <?php else: ?>
@@ -29,12 +33,13 @@
       <p><?= nl2br(htmlspecialchars($proposal['description'] ?? '', ENT_QUOTES, 'UTF-8')) ?></p>
 
       <?php if (!empty($proposal['created_at'])): ?>
-        <p class="meta">Created: <?= htmlspecialchars($proposal['created_at'], ENT_QUOTES, 'UTF-8') ?></p>
+        <p class="meta">Submitted: <?= htmlspecialchars($proposal['created_at'], ENT_QUOTES, 'UTF-8') ?></p>
       <?php endif; ?>
 
       <p>
         <a href="?page=proposal&id=<?= (int)($proposal['id'] ?? 0) ?>">View details</a>
         | <a href="?page=proposals-edit&id=<?= (int)($proposal['id'] ?? 0) ?>">Edit</a>
+        | <a href="?page=proposals-delete&id=<?= (int)($proposal['id'] ?? 0) ?>">Delete</a>
       </p>
     </div>
   <?php endforeach; ?>

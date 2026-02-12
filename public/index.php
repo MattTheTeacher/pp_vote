@@ -37,6 +37,14 @@ switch ($page) {
         $controller->update();
         break;
 
+    case 'proposals-delete':
+        $controller->deleteConfirm();
+        break;
+
+    case 'proposals-destroy':
+        $controller->destroy();
+        break;
+
     default:
         require __DIR__ . '/../app/Views/home.php';
         break;
