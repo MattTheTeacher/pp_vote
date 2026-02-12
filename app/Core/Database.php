@@ -1,21 +1,10 @@
 <?php
-
 class Database
 {
-    public static function connect()
+    public static function pdo(): PDO
     {
-        $host = 'localhost';
-        $db   = 'pp_vote';
-        $user = 'root';
-        $pass = '';
-        $charset = 'utf8mb4';
-
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ];
-
-        return new PDO($dsn, $user, $pass, $options);
+        $pdo = new PDO('mysql:host=localhost;dbname=pp_vote;charset=utf8mb4', 'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $pdo;
     }
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Public Voting App | Submit a Proposal</title>
+  <title>Public Voting App | Edit Proposal</title>
   <style>
     .card { border: 1px solid #ddd; padding: 12px; margin: 12px 0; }
     .meta { color: #555; font-size: 0.9rem; }
@@ -12,11 +12,21 @@
   </style>
 </head>
 <body>
-<h1>Submit a Proposal</h1>
+<h1>Edit Proposal</h1>
 
-<p><a href="?page=proposals">Back to Proposals</a> | <a href="?page=home">Home</a></p>
+<p>
+  <a href="?page=proposal&id=<?= (int)($proposal['id'] ?? 0) ?>">Back to Details</a>
+  | <a href="?page=proposals">Back to Proposals</a>
+  | <a href="?page=home">Home</a>
+</p>
 
-<form action="?page=proposals-store" method="POST" novalidate>
+<?php if (!empty($error)): ?>
+  <p class="error"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
+<?php else: ?>
+
+<form action="?page=proposals-update" method="POST" novalidate>
+  <input type="hidden" name="id" value="<?= (int)($proposal['id'] ?? 0) ?>"/>
+
   <p>
     <label for="title"><strong>Title</strong></label><br />
     <input type="text" id="title" name="title"
@@ -38,8 +48,10 @@
     <?php endif; ?>
   </p>
 
-  <button type="submit">Submit Proposal</button>
+  <button type="submit">Save Changes</button>
 </form>
+
+<?php endif; ?>
 
 </body>
 </html>

@@ -1,37 +1,27 @@
 <?php
-
 class FormHelper
 {
-    private $errors = [];
+    private array $errors = [];
 
-    /**
-     * Validate a text field with min/max length.
-     */
-    public function text($value, $field, $min, $max)
+    public function text(string $value, string $field, int $min, int $max): string
     {
-        $value = trim((string)$value);
+        $value = trim($value);
 
         if ($value === '') {
-            $this->errors[$field] = 'This field is required.';
-            return '';
+            $this->errors[$field] = ucfirst($field) . " is required.";
+            return $value;
         }
 
-        $len = strlen($value);
-        if ($len < $min || $len > $max) {
-            $this->errors[$field] = "Must be between {$min} and {$max} characters.";
-            return '';
+        $len = mb_strlen($value);
+        if ($len < $min) {
+            $this->errors[$field] = ucfirst($field) . " must be at least {$min} characters.";
+        } elseif ($len > $max) {
+            $this->errors[$field] = ucfirst($field) . " must be {$max} characters or fewer.";
         }
 
         return $value;
     }
 
-    public function hasErrors()
-    {
-        return !empty($this->errors);
-    }
-
-    public function errors()
-    {
-        return $this->errors;
-    }
+    public function errors(): array { return $this->errors; }
+    public function hasErrors(): bool { return !empty($this->errors); }
 }
